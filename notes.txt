@@ -1,0 +1,459 @@
+
+Donkey Car with 
+
+
+you want to traning loss to be lower thatn your validations loss
+
+data = ImageDataBunch.from_csv(path, valid_pct=0.2,
+         size=(160,160), fn_col=1, resize_method=ResizeMethod.PAD, padding_mode='zeros', label_col=2, num_workers=4).normalize(imagenet_stats); data
+
+
+epoch	train_loss	valid_loss	error_rate	time
+0	1.707762	1.494469	0.450172	02:44
+1	1.436666	1.334747	0.418946	02:41
+2	1.334345	1.259480	0.402146	02:43
+3	1.260589	1.233839	0.395285	02:42
+
+
+2nd round 
+0	1.191593	1.189962	0.382531	03:39
+1	1.096092	1.166844	0.378749	03:39
+
+37% error rate
+
+
+
+data = ImageDataBunch.from_csv(path, valid_pct=0.2,
+         size=(224,224), fn_col=1, label_col=2, num_workers=4).normalize(imagenet_stats); data
+
+epoch	train_loss	valid_loss	error_rate	time
+0	1.720669	1.505466	0.459759	02:44
+1	1.463999	1.368854	0.432404	02:46
+2	1.359541	1.275956	0.406808	02:47
+3	1.261749	1.255944	0.401970	02:48
+
+epoch	train_loss	valid_loss	error_rate	time
+0	1.215338	1.202442	0.388161	03:47
+1	1.141416	1.179588	0.381124	03:48
+
+
+Lesson 2:
+
+np.rand.seed(2) you should always have the seed before the ImageBunch as it will set the random value for the % of validation set consistant
+
+learning rate finder
+you want to choose the region with the most downward trends
+default 3 X e-3 = .003
+after unfreeze the range of learning rate is  top of the slope in lr_finder ,3e-4
+learn.recorder.plot_losses() will plot losses 
+
+
+error should always imporve 
+
+
+x@a in python its a matrix product 
+
+tensor 
+
+row x column x 3
+image is rank 3 tensor 
+
+python in array : every row x[:,0] of column zero 
+uniform_ _ means replace inline 
+
+x[:5] first 5 rows
+
+Pytorch backward() does the derivative 
+
+Epoch entire dataset
+
+SDG Stochastiac Gradient Decent: minibatches losses are used to calulate the new parameters (weights) 
+SGD: data in -> (linear 3x + 2) + random factor = y -> y[] * your prediction of the correct linear function -> caculate the loss(difference squared).mean(of all values) -> adjust in the direction of the loss gredient  
+Epoch is many minibatches over the enitre dataset
+
+Model: mathamatical architecture
+
+
+
+Lesson 3:
+PyTorch Dataset: get and length 
+
+Pytorch dataloader: dataset and batches then for gpu traning minibatches
+
+fast.ai dataBunch: train and validation set DataLoader 
+
+image data bunch Get_transform adds flipping by detault this is bad 
+
+partial Python: partial add different paramaters to a function call partial(accuracy_thresh, thresh=0.2) where accuracy_thresh is a function
+
+48 mins in optomising models 
+
+size 64 then to larger size images, this seems to generatise well
+
+regression model a continus set of numbers as a result using mean squared loss error
+
+split dataset validation to be an example of the set
+
+
+unet for segmentation problems 
+.to_fp16() floating point 16 bit
+
+Lesson 4:
+NLP transfer learning
+
+WikiText Language Model is based on large articles of wikipedia
+Self supervies learning
+NLP Transfer:
+
+load labled text -> tokenise them -> break down into vocab -> convert to ID
+restrict the vocab to 60,000 size to reduce complexity 
+train, validation, unspervised (unscored)  
+to table we use label_for_lm()
+using rnn
+drop_mult=.3 for dropout for underfitting
+
+Train the model for the IMDB data.
+
+Classifier 
+
+descrimiative learning rates -> look it up 2.6 at learning rate 
+
+Tabular data
+Catagorical varaibles
+COntigues variables
+indipendent variabl what you are using data to predict 
+
+procedures Fillmissing values categorify and normaize has to be done on both 
+
+Embedding is a matrix of weights a vector for a user or movie
+
+input * 3x5 matrix = result -> relu * matrix 8x5
+
+parameter are weights 
+
+activations are like relu and the result of the matrix * the result
+
+Lesson 5:
+
+2 type of layers parameters and activations 
+Inputs are a special case
+
+activations are performed for each input element 
+
+Backpropergation: weights -= parameter * learning rate 
+loss function works on the output and the actual to work out the difference 
+
+Transfer learning: cnn removed the last layer and adds two parameters and relu between
+we split the model with different learning rates, this trains the enitre network but efects the model less
+process is called using discrimative learning rates 
+
+fit(1, slice(1e-5, 1e-3)) this spreads the lr across the 3 sections of the cnn model
+
+afine functions matrix multiplication 
+
+Embedding: lookup in an array = matrix * 1 hot encoded matrix -> a lookup becuase there are many zero values in one hot and dot product of them is 0 so we just need the 1 values in a one hot encoded matrix
+
+Laytent features: the net finds them  
+bias: a static number fixes issues around if a biases in the data
+sigmod asymtotic function that gives a range of numbers 
+factors = width of embending matrix 
+
+PCA(principle componetnt analysis) - breaks down multidimnetinal data into something you can look at and work out
+
+nn.module py torch looks like a function
+forward is the call for predictions one preforms on many
+
+For Colabroateve filtering
+class EmbeddingDotBias(Module): shows how its built
+
+Regularisation: more params creates overfitting 
+we sum the square of the paramters then * by a factor wd (weight decay) .1 most of the time. This penalises complexity and
+take the loss + wd * (sum of the square of the params) 
+
+lesson 2 SDG 
+
+w(t) = w(t-1) - lr *(gradient(d loss/ d w(t+1))
+
+
+l2 Regularisation new+loss = loss + weight Decay(sum(weights**2))
+
+weight decay = wd * weights the deriviatie to l2 regularisation
+
+Create your own linear layer params + bias in pytorch 
+
+gradient decent -> excel  look at 
+used vaules on a line -> caculates derivaitve using a few diff methods -> gets the loss (predicted vs actual) -> new intercept -= (intercept - gradient)  * learning rate
+
+momentum -> takes bigger steps if the previous value was as well, smaller steps if the direction changes = pervious * .9 + current * .1 
+expontualy weighted moveing average  
+momentum .9 is common
+
+rmsprop -> grades small take bigger jumps 
+
+adam => momentum + rmsprop = expoential weighted moving average greadient ^2 and expoential weighted moving average greadi ent
+
+
+cross entropy loss = sum (one hot encoded value truth * log (prediction))
+since its caculated on one hot encoded values we only caculate it on the 1 in the row
+to use this the activation function has to be softmax as the predictions have to add to 1 for reach row
+
+softmax = e^x/sum(all e^(activations))
+
+Homework look at collab and build pytorch linear
+
+matrix multiplication = A matrix is m * n B matrix is n * p = AB m * n 
+
+@ is matmul 
+
+
+Lesson 6:
+https://github.com/hiromis/notes/blob/master/Lesson6.md
+--------------------------------------------------------------------------------Have to look at tabular more need to look at how the results work
+
+
+Data Augmentation for tabular data
+For TabularList - catagorical var and continus variables 
+Categorify takes all combinations of data creates a pandas class 
+FillMissing for something missing we put a new column to show its missing 
+WE can also add the mean for a continuse variable if its missing
+procs are passed to it and it adds them in the training loop
+
+label_cls class float means regression 
+int means classification
+y_range is the range of values with a bit more on the top
+doc(floatList) fast ai 
+
+ps
+
+
+ps = [first layer, rest of the layer dropout %]
+Dropout ps value for dropout removes random nodes in the hidden layer for each mini batch the reduces overfitting as no node can memorise anything 
+since we remove paramaters when we train with all the parameters we add a noise factor to some paramters 
+
+emb_dropout = out of an embedding we want to delete some of the results 
+
+Batch Nomralisation = batch norm layer regualrises the data and muliplies the model with a new weighted average and bias term that means you can increase the lerning trate
+and have a more stable training 
+
+
+always want to use batch Norm, weight decay you should use it
+dropout experiment with 
+
+hw write your own drop out layer
+
+Data Augmentation 
+for images 
+have a look athe other transformations --------------------------------------------------------------
+
+padding mode zero, reflection works best 
+
+CNN 
+https://setosa.io/ev/image-kernels/ how they work
+kernal is the transfomration using element wise multiply
+
+cnn layer means the items in the kernal are only connected to a smaller section of section on the inputs 
+INputs -> only some paramaters are effected as its only a subset -> output
+padding adding additional numbers outside as the keranel only results in a single number so 3 * 3 kernel will result in no data
+
+rgb is a rank 3 tensor requires a rank 3 kernel still results in one number with how ever many kernels we have 
+each kernel has different information such as top edge, bottom edge, greatients 
+
+to reduce the memory we have stride 2 conv which skips 2 input pixels -> output h/2 by w/2
+the first conv in layer is stride 2 normally 
+expand(1,3,3,3) expands a tensor in a 3 * 3 *3 matrix from a 2d matrix
+
+t = data.valid_ds[0][0].data; t.shape
+torch.Size([3, 352, 352]) rank 3 tensor 
+
+t[None].shape rank 4 tensor with a 1 in the first pos due to the none bs
+torch.Size([1, 3, 352, 352])
+
+average pooling takes the mean of each layer in the kernal and times it by the output vector 
+
+fast ai hook
+we can hook into the model and training time and get data out 
+with fast ai resent the model[0] is the initial model 
+
+-----------------------create a  mini batch and how to normaize look at lesson 6 how it works with the kernels 
+
+#creates a mini batch of one image and normaises it
+xb,_ = data.one_item(x)
+xb_im = Image(data.denorm(xb)[0])
+xb = xb.cuda()
+
+
+#### Embedding Layer
+take to params (unique word count, vector length) so its a look up for the vector for each word the latenet vector for that word 
+
+### normalisation
+Helps with gradient desent as it averages all the values over a constricted scale 
+speeds up training 
+
+#################### Lesson 7
+
+* in array is a speread operator
+
+tfms = ([*rand_pad(padding=3, size=28, mode='zeros')], []) second brackets are the traning set transforms
+
+#### skip or indentity connection resblock 
+x => 2 layers (c1, c2)
+x + c1(c2(x) = result skip layer 
+skip layers smothe the loss gradient 
+res_block is the fastAi function 
+
+
+################ visualising the loss landscape of Neural Nets read HW
+
+Dense Blocks 
+like res block but with concatination of concat (x, c1(c2(x))) makes a larger 
+memory intensive 
+
+
+###### Conv layer
+stride decrease the output size 
+other value is the paramters for the conv
+
+###### deconv, transpose convolution
+stride half conv
+
+2 ways to do it 
+1)a conv way where you upsample it 
+
+2) do a nearest neiboughr [[a,b],[c,d]] -> [[a, a, b, b],[a, a, b, b], [c, c, d, d], [c, c, d, d]]
+then do a conv of stride 1 and it will do the computation 
+or bi linear using a weighted average of the cells around it
+
+3) pixel shuffle 
+
+##################################333 A guide to convolution artihetic for deep learning 
+
+
+##### U-net generateive modeling 
+Unet down samples then upsaples with the original downsample kernal at the size 
+like a autoencoder but with concatiation of the samples 
+######################################### Look at code for Unet fast ai
+fast ai uses a resnet 34, then upsamples to full size
+
+
+fastai parrallel (function, list) like a map
+
+
+######## Gan
+Generates a prediction image using unet, we then use Mean Squared Error, the result is not great 
+
+So we train a critic/discriminatior that takes the input prediction and the hi res image and gives a error rate.
+We then train the generator so it learns to be better, then train the critic so it learns to be better 
+
+
+the critic is a gan_critic and a AdaptiveLoss binary cross entorpy loss
+
+################### look at wgan and lesson7-resnet-mnist.ipynb
+
+http://127.0.0.1:8888/notebooks/course-v3/nbs/dl1/lesson7-superres.ipynb ####### Study the Perceptual Loss for real time style transfer and super resolution 
+
+# RNN
+predictions of the next results 
+
+input -> Activations -> Activations -> output
+
+input 1 -> Activations -> (concat input 2) -> Activations -> output 
+rnn is a loop on inputs and activations 
+
+while (input n -> activations (concat input n+1) ) -> ouput
+
+RNN keep state from the previous value 
+
+GRU or LSTM 
+
+RNN work on the data that has come before 
+
+
+#BPTT  Backpropagation through time used to training rnns 
+its faster and its a way to compute the back propergation by unrolling the network
+
+xxbos is the start token
+
+
+########## Donkey Car
+3dCNN with Resnet style loops 
+maybe try CNN + RNN 
+try against the normal model 
+
+
+
+###############
+Lesson 8
+Steps to better models
+1. Overfit -> reduce overfit -> There is no step 3
+Traning loss < Validation loss 
+validation error getting worse 
+
+Steps to avoid over fitting 
+More data
+Data Augmentation
+Generalisable architectures 
+Regularization -> drop out weigh decay 
+Reduce architecutre complexity 
+
+Frobenius Norm:
+(x*x).sum().sqrt()
+
+broadcasting in python -------------------------------------------------- Look at broadcasting
+its used in numpy
+gets rid of for loops and repalces them with 
+a = tensor([10, 3, 4])
+a > 1 uses broadcasting to create a tensor of 3 elems of 1
+
+c = [10,20,30] 
+c[None,:] is a unsquese command to expand a 
+c[None,:] = [[10,20,30]] shape 1,3
+
+c[:,None] = [[10],[20],[30]] shape 3,1
+
+@ is the sort of similar to matmul 
+
+### wrting fully connected layer ----------------------HW
+Foward Pass
+initialisation is improtant 
+
+
+##### Normalisation 
+we need to noramise the data
+train_mean,train_std = x_train.mean(),x_train.std()
+def normalize(x, m, s): return (x-m)/s 
+
+input - mean / std deviation
+
+Normalisation of the intialisation is important  simplified kaiming init / he init ----------HW look at initialisation of the tensors 
+
+relu destorys the std deviations 
+so we need to initi with the knowloadge of the relu breaking the std and mean
+
+#### REad 2.2 https://arxiv.org/abs/1502.01852 ------------- HW
+
+Sqeeze removes a unit axis 
+MSE mean((output - target)^2)
+
+
+#Backprop need to look at
+Chain Rule Khan Academy 
+
+pytorch requires_grad means ever operation the backprop will be caculated 
+or backwards pass
+
+class Relu():
+    def __call__(): #foward pass
+    #save forward and backaward pass info
+
+    def backward(): #backward pass
+
+__call__ is the function it calles when you the class
+
+
+
+
+
+
+
+
+

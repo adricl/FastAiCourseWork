@@ -355,4 +355,6 @@ data/
 US_data/
 oxford-iiit-pet/
 models/
+ml-100k/
+human_numbers/
 .ipynb_checkpoints/

@@ -348,6 +348,11 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+#Adric data
 camvid_tiny/
 data/
 US_data/
+oxford-iiit-pet/
+models/
+.ipynb_checkpoints/
